@@ -16,6 +16,12 @@ import { useSelector, useDispatch } from '../../services/store';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { ProtectedRoute } from '../protected-route/protected-route';
 import { selectIngredients, getIngredients } from '../../services/ingredients';
+import {
+  getFeeds,
+  selectFeedsOrders,
+  selectFeedsTotal,
+  selectFeedTotalToday
+} from '../../services/feeds';
 import { useEffect } from 'react';
 
 const App = () => {
@@ -24,11 +30,18 @@ const App = () => {
   const state = location.state as { background?: Location };
   const navigate = useNavigate();
   const ingredients = useSelector(selectIngredients);
+  const feedsOrders = useSelector(selectFeedsOrders);
+  const feedsTotal = useSelector(selectFeedsTotal);
+  const feedTotalToday = useSelector(selectFeedTotalToday);
 
   console.log('ingredients = ', ingredients);
+  console.log('feedsOrders = ', feedsOrders);
+  console.log('feedsTotal = ', feedsTotal);
+  console.log('feedTotalToday = ', feedTotalToday);
 
   useEffect(() => {
     dispatch(getIngredients());
+    dispatch(getFeeds());
   }, [dispatch]);
 
   return (

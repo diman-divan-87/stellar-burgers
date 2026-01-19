@@ -20,14 +20,6 @@ export const getIngredients = createAsyncThunk(
   getIngredientsApi
 );
 
-export const selectIngredients = (state: RootState) => state.ingredients.data;
-
-export const selectIngredientsLoading = (state: RootState) =>
-  state.ingredients.error;
-
-export const selectIngredientsError = (state: RootState) =>
-  state.ingredients.error;
-
 export const ingredientsSlice = createSlice({
   name: 'ingredients',
   initialState,
@@ -55,3 +47,9 @@ export const ingredientsSlice = createSlice({
 });
 
 export const {} = ingredientsSlice.actions;
+
+export const selectIngredients = (state: RootState) => state.ingredients.data;
+export const selectIngredientsLoading = (state: RootState) =>
+  state.ingredients.isLoading;
+export const selectIngredientsError = (state: RootState) =>
+  state.ingredients.error;
