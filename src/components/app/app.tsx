@@ -9,17 +9,27 @@ import {
   ProfileOrders,
   NotFound404
 } from '@pages';
-
 import { AppHeader, IngredientDetails, Modal, OrderInfo } from '@components';
 import '../../index.css';
 import styles from './app.module.css';
+import { useSelector, useDispatch } from '../../services/store';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { ProtectedRoute } from '../protected-route/protected-route';
+import { selectIngredients, getIngredients } from '../../services/ingredients';
+import { useEffect } from 'react';
 
 const App = () => {
   const location = useLocation();
+  const dispatch = useDispatch();
   const state = location.state as { background?: Location };
   const navigate = useNavigate();
+  const ingredients = useSelector(selectIngredients);
+
+  console.log('ingredients = ', ingredients);
+
+  useEffect(() => {
+    dispatch(getIngredients());
+  }, [dispatch]);
 
   return (
     <div className={styles.app}>
