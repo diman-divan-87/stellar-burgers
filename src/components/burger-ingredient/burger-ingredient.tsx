@@ -8,7 +8,9 @@ export const BurgerIngredient: FC<TBurgerIngredientProps> = memo(
   ({ ingredient, count }) => {
     const location = useLocation();
 
-    const handleAdd = () => {};
+    const handleAdd = () => {
+      console.log('ingredient = ', ingredient);
+    };
 
     return (
       <BurgerIngredientUI

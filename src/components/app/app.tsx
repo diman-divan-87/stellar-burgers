@@ -34,10 +34,10 @@ const App = () => {
   const feedsTotal = useSelector(selectFeedsTotal);
   const feedTotalToday = useSelector(selectFeedTotalToday);
 
-  console.log('ingredients = ', ingredients);
-  console.log('feedsOrders = ', feedsOrders);
-  console.log('feedsTotal = ', feedsTotal);
-  console.log('feedTotalToday = ', feedTotalToday);
+  // console.log('ingredients = ', ingredients);
+  // console.log('feedsOrders = ', feedsOrders);
+  // console.log('feedsTotal = ', feedsTotal);
+  // console.log('feedTotalToday = ', feedTotalToday);
 
   useEffect(() => {
     dispatch(getIngredients());
@@ -47,7 +47,7 @@ const App = () => {
   return (
     <div className={styles.app}>
       <AppHeader />
-      <Routes>
+      <Routes location={state?.background || location}>
         <Route path='/' element={<ConstructorPage />} />
         <Route path='/feed' element={<Feed />} />
         <Route
