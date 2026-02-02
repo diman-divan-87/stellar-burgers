@@ -5,10 +5,12 @@ import { v4 } from 'uuid';
 
 interface BurgerConstructorState {
   ingredientsArr: TConstructorIngredient[]; // выбранные ингридиенты
+  bun: TConstructorIngredient | null;
 }
 
 export const initialConstructor: BurgerConstructorState = {
-  ingredientsArr: []
+  ingredientsArr: [],
+  bun: null
 };
 
 export const burgerConstructorSlice = createSlice({
@@ -24,6 +26,9 @@ export const burgerConstructorSlice = createSlice({
         return { payload: { ...ingredient, id: key } };
       }
     },
+    addBun: (state, action: PayloadAction<TConstructorIngredient>) => {
+      state.bun = action.payload;
+    },
     removeIngredient: (state, action: PayloadAction<string>) => {
       state.ingredientsArr = state.ingredientsArr.filter(
         (b) => b.id !== action.payload
@@ -33,7 +38,9 @@ export const burgerConstructorSlice = createSlice({
 });
 
 export const { addIngredient } = burgerConstructorSlice.actions;
+export const { addBun } = burgerConstructorSlice.actions;
 
 // Функции для получения конкретных частей состояния из Redux store.
 export const getIngredients = (state: RootState) =>
   state.getIngredients.ingredientsArr;
+export const getBun = (state: RootState) => state.getIngredients.bun;

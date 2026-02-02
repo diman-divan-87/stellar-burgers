@@ -4,21 +4,19 @@ import { useLocation } from 'react-router-dom';
 import { BurgerIngredientUI } from '@ui';
 import { TBurgerIngredientProps } from './type';
 
-import { useDispatch, useSelector } from '../../services/store';
-import {
-  getIngredients,
-  addIngredient
-} from '../../services/burger-constructor';
+import { useDispatch } from '../../services/store';
+import { addIngredient, addBun } from '../../services/burger-constructor';
 
 export const BurgerIngredient: FC<TBurgerIngredientProps> = memo(
   ({ ingredient, count }) => {
-    const selectedIngredients = useSelector(getIngredients);
-    // TODO удалить
-    console.log('selectedIngredients = ', selectedIngredients);
     const location = useLocation();
     const dispatch = useDispatch();
     const handleAdd = () => {
-      dispatch(addIngredient(ingredient));
+      if (ingredient.type === 'bun') {
+        dispatch(addBun({ ...ingredient, id: 'null' }));
+      } else {
+        dispatch(addIngredient(ingredient));
+      }
     };
 
     return (
