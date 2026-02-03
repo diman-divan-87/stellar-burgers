@@ -29,16 +29,18 @@ export const burgerConstructorSlice = createSlice({
     addBun: (state, action: PayloadAction<TConstructorIngredient>) => {
       state.bun = action.payload;
     },
-    removeIngredient: (state, action: PayloadAction<string>) => {
-      state.ingredientsArr = state.ingredientsArr.filter(
-        (b) => b.id !== action.payload
-      );
+    addAllingredientsArr: (
+      state,
+      action: PayloadAction<TConstructorIngredient[]>
+    ) => {
+      state.ingredientsArr = action.payload;
     }
   }
 });
 
 export const { addIngredient } = burgerConstructorSlice.actions;
 export const { addBun } = burgerConstructorSlice.actions;
+export const { addAllingredientsArr } = burgerConstructorSlice.actions;
 
 // Функции для получения конкретных частей состояния из Redux store.
 export const getIngredients = (state: RootState) =>
