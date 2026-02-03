@@ -20,6 +20,7 @@ export const ForgotPasswordUI: FC<PageUIProps> = ({
         onSubmit={handleSubmit}
       >
         <div className='pb-6'>
+          {/* @ts-ignore */}
           <Input
             type='email'
             placeholder='Укажите e-mail'
@@ -29,8 +30,6 @@ export const ForgotPasswordUI: FC<PageUIProps> = ({
             error={false}
             errorText=''
             size='default'
-            onPointerEnterCapture={() => {}}
-            onPointerLeaveCapture={() => {}}
           />
         </div>
         <div className={`pb-6 ${styles.button}`}>

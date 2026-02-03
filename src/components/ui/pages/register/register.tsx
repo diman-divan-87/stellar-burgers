@@ -28,6 +28,7 @@ export const RegisterUI: FC<RegisterUIProps> = ({
       >
         <>
           <div className='pb-6'>
+            {/* @ts-ignore */}
             <Input
               type='text'
               placeholder='Имя'
@@ -37,11 +38,10 @@ export const RegisterUI: FC<RegisterUIProps> = ({
               error={false}
               errorText=''
               size='default'
-              onPointerEnterCapture={() => {}}
-              onPointerLeaveCapture={() => {}}
             />
           </div>
           <div className='pb-6'>
+            {/* @ts-ignore */}
             <Input
               type='email'
               placeholder='E-mail'
@@ -51,8 +51,6 @@ export const RegisterUI: FC<RegisterUIProps> = ({
               error={false}
               errorText=''
               size={'default'}
-              onPointerEnterCapture={() => {}}
-              onPointerLeaveCapture={() => {}}
             />
           </div>
           <div className='pb-6'>
