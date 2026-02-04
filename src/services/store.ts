@@ -1,5 +1,6 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
+import { registerUserAppSlice } from './auth/registerUser';
 import {
   TypedUseSelectorHook,
   useDispatch as dispatchHook,
@@ -13,7 +14,8 @@ import { feedSlice } from './feeds';
 export const rootReducer = combineReducers({
   ingredients: ingredientsSlice.reducer,
   getIngredients: burgerConstructorSlice.reducer,
-  feeds: feedSlice.reducer
+  feeds: feedSlice.reducer,
+  register: registerUserAppSlice.reducer
 });
 
 const store = configureStore({
