@@ -1,11 +1,15 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { registerUserApi, TRegisterData } from '../../utils/burger-api';
 import { TUser } from '@utils-types';
+import { setCookie } from '../../utils/cookie';
 
 export const registerUserApp = createAsyncThunk(
   'user/registerUser',
   async (data: TRegisterData) => {
     const res = await registerUserApi(data);
+    if (res.refreshToken)
+      localStorage.setItem('refreshToken', res.refreshToken);
+    if (res.accessToken) setCookie('accessToken', res.accessToken);
     return res.user;
   }
 );
