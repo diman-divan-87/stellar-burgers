@@ -3,17 +3,6 @@ import { registerUserApi, TRegisterData } from '../../utils/burger-api';
 import { TUser } from '@utils-types';
 import { setCookie } from '../../utils/cookie';
 
-export const registerUserApp = createAsyncThunk(
-  'user/registerUser',
-  async (data: TRegisterData) => {
-    const res = await registerUserApi(data);
-    if (res.refreshToken)
-      localStorage.setItem('refreshToken', res.refreshToken);
-    if (res.accessToken) setCookie('accessToken', res.accessToken);
-    return res.user;
-  }
-);
-
 type TUserState = {
   isRegisterChecked: boolean;
   user: TUser | null;
@@ -27,6 +16,17 @@ export const initialState: TUserState = {
   loading: false,
   error: null
 };
+
+export const registerUserApp = createAsyncThunk(
+  'user/registerUser',
+  async (data: TRegisterData) => {
+    const res = await registerUserApi(data);
+    if (res.refreshToken)
+      localStorage.setItem('refreshToken', res.refreshToken);
+    if (res.accessToken) setCookie('accessToken', res.accessToken);
+    return res.user;
+  }
+);
 
 export const registerUserAppSlice = createSlice({
   name: 'registerUserApp',

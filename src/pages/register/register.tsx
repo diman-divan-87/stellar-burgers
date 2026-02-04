@@ -17,6 +17,7 @@ export const Register: FC = () => {
   const { error, loading, user, isRegisterChecked } = useSelector(
     (state) => state.register
   );
+
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
 
