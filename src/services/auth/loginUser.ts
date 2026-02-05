@@ -26,13 +26,10 @@ export const loginUserApp = createAsyncThunk(
   }
 );
 
-export const fetchUserApp = createAsyncThunk(
-  'auth/user',
-  async () => {
-    const data = await getUserApi();
-    return data.user;
-  }
-);
+export const fetchUserApp = createAsyncThunk('auth/user', async () => {
+  const data = await getUserApi();
+  return data.user;
+});
 
 export const loginUserAppSlice = createSlice({
   name: 'loginUserApp',

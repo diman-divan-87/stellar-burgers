@@ -30,19 +30,9 @@ const App = () => {
   const dispatch = useDispatch();
   const state = location.state as { background?: Location };
   const navigate = useNavigate();
-  const ingredients = useSelector(selectIngredients);
-  const feedsOrders = useSelector(selectFeedsOrders);
-  const feedsTotal = useSelector(selectFeedsTotal);
-  const feedTotalToday = useSelector(selectFeedTotalToday);
-console.log('App = ', feedTotalToday)
-
-    dispatch(fetchUserApp());
-  // console.log('ingredients = ', ingredients);
-  // console.log('feedsOrders = ', feedsOrders);
-  // console.log('feedsTotal = ', feedsTotal);
-  // console.log('feedTotalToday = ', feedTotalToday);
 
   useEffect(() => {
+    dispatch(fetchUserApp());
     dispatch(getIngredients());
     dispatch(getFeeds());
   }, [dispatch]);
