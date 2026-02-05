@@ -1,4 +1,4 @@
-import { loginUserApi, TLoginData, getUserApi } from '../../utils/burger-api';
+import { loginUserApi, TLoginData, getUserApi, logoutApi } from '../../utils/burger-api';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { TUser } from '@utils-types';
 import { setCookie } from '../../utils/cookie';
@@ -31,6 +31,11 @@ export const fetchUserApp = createAsyncThunk('auth/user', async () => {
   return data.user;
 });
 
+export const logoutUserApp = createAsyncThunk('auth/logout', async () => {
+  const res = await logoutApi();
+  return res;
+});
+
 export const loginUserAppSlice = createSlice({
   name: 'loginUserApp',
   initialState,
@@ -41,6 +46,18 @@ export const loginUserAppSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      .addCase(logoutUserApp.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(logoutUserApp.fulfilled, (state) => {
+        state.loading = false;
+        state.user = null;
+      })
+      .addCase(logoutUserApp.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload ? action.error.message as string : 'Logout failed';
+      })
       .addCase(fetchUserApp.pending, (state) => {
         state.loading = true;
         state.error = null;
