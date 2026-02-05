@@ -4,11 +4,13 @@ import {
   TLoginData,
   getUserApi,
   logoutApi,
-  TRegisterData
+  TRegisterData,
+  updateUserApi
 } from '../../utils/burger-api';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { TUser } from '@utils-types';
 import { setCookie } from '../../utils/cookie';
+import { RootState } from '../store';
 
 type TUserState = {
   isRegisterChecked: boolean;
@@ -56,6 +58,14 @@ export const logoutUserApp = createAsyncThunk('auth/logout', async () => {
   return res;
 });
 
+export const updateUserApp = createAsyncThunk(
+  'auth/updateUser',
+  async (data: TRegisterData) => {
+    const res = await updateUserApi(data);
+    return res;
+  }
+);
+
 export const loginUserAppSlice = createSlice({
   name: 'loginUserApp',
   initialState,
@@ -69,6 +79,21 @@ export const loginUserAppSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      .addCase(updateUserApp.pending, (state) => {
+        state.loading = true;
+        state.isRegisterChecked = false;
+        state.error = null;
+      })
+      .addCase(updateUserApp.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message || null;
+        state.isRegisterChecked = true;
+      })
+      .addCase(updateUserApp.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload.user;
+        state.isRegisterChecked = false;
+      })
       .addCase(registerUserApp.pending, (state) => {
         state.loading = true;
         state.isRegisterChecked = false;
@@ -137,6 +162,10 @@ export const loginUserAppSlice = createSlice({
   }
 });
 
+export const selectUserAuthLoading = (state: RootState) =>
+  state.loginUser.loading;
+export const selectUser = (state: RootState) => state.loginUser.user;
 export const { resetRegisterChecked } = loginUserAppSlice.actions;
 export const { resetErr } = loginUserAppSlice.actions;
+
 export const userReducer = loginUserAppSlice.reducer;
