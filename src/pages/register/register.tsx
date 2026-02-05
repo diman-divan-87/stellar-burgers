@@ -1,12 +1,12 @@
 import { FC, SyntheticEvent, useState, useEffect } from 'react';
 import { RegisterUI } from '@ui-pages';
 import { useDispatch } from '../../services/store';
-import {
-  registerUserApp,
-  resetRegisterChecked
-} from '../../services/auth/registerUser';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from '../../services/store';
+import {
+  resetRegisterChecked,
+  registerUserApp
+} from '../../services/auth/loginUser';
 
 export const Register: FC = () => {
   const dispatch = useDispatch();
@@ -15,7 +15,7 @@ export const Register: FC = () => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
   const { error, loading, user, isRegisterChecked } = useSelector(
-    (state) => state.register
+    (state) => state.loginUser
   );
 
   const handleSubmit = (e: SyntheticEvent) => {
