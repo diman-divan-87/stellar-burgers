@@ -1,4 +1,4 @@
-import { loginUserApi, TLoginData } from '../../utils/burger-api';
+import { loginUserApi, TLoginData, getUserApi } from '../../utils/burger-api';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { TUser } from '@utils-types';
 import { setCookie } from '../../utils/cookie';
@@ -26,6 +26,14 @@ export const loginUserApp = createAsyncThunk(
   }
 );
 
+export const fetchUserApp = createAsyncThunk(
+  'auth/user',
+  async () => {
+    const data = await getUserApi();
+    return data.user;
+  }
+);
+
 export const loginUserAppSlice = createSlice({
   name: 'loginUserApp',
   initialState,
@@ -36,6 +44,24 @@ export const loginUserAppSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      .addCase(fetchUserApp.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(
+        fetchUserApp.fulfilled,
+        (state, action: PayloadAction<TUser>) => {
+          state.loading = false;
+          state.user = action.payload;
+          state.error = null;
+        }
+      )
+      .addCase(fetchUserApp.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload
+          ? (action.error.message as string)
+          : 'Login failed';
+      })
       .addCase(loginUserApp.pending, (state) => {
         state.loading = true;
         state.error = null;

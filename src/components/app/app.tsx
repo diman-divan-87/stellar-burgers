@@ -22,6 +22,7 @@ import {
   selectFeedsTotal,
   selectFeedTotalToday
 } from '../../services/feeds';
+import { fetchUserApp } from '../../services/auth/loginUser';
 import { useEffect } from 'react';
 
 const App = () => {
@@ -33,7 +34,9 @@ const App = () => {
   const feedsOrders = useSelector(selectFeedsOrders);
   const feedsTotal = useSelector(selectFeedsTotal);
   const feedTotalToday = useSelector(selectFeedTotalToday);
+console.log('App = ', feedTotalToday)
 
+    dispatch(fetchUserApp());
   // console.log('ingredients = ', ingredients);
   // console.log('feedsOrders = ', feedsOrders);
   // console.log('feedsTotal = ', feedsTotal);
