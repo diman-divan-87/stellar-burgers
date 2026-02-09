@@ -8,35 +8,39 @@ import {
 } from '../../services/auth/loginUser';
 
 import { Preloader } from '@ui';
-import { TUser } from '@utils-types';
 
 export const Profile: FC = () => {
-  /** TODO: взять переменную из стора */
   const dispatch = useDispatch();
   const isLoading = useSelector(selectUserAuthLoading);
-  const user = useSelector(selectUser) as TUser;
-
-  if (isLoading || !user) {
-    return <Preloader />;
-  }
+  const user = useSelector(selectUser);
 
   const [formValue, setFormValue] = useState({
-    name: user.name,
-    email: user.email,
+    name: '',
+    email: '',
     password: ''
   });
 
   useEffect(() => {
-    setFormValue((prevState) => ({
-      ...prevState,
-      name: user?.name || '',
-      email: user?.email || ''
-    }));
+    if (user) {
+      setFormValue({
+        name: user.name || '',
+        email: user.email || '',
+        password: ''
+      });
+    }
   }, [user]);
 
+  if (isLoading) {
+    return <Preloader />;
+  }
+
+  if (!user) {
+    return <div>Пользователь не найден</div>;
+  }
+
   const isFormChanged =
-    formValue.name !== user?.name ||
-    formValue.email !== user?.email ||
+    formValue.name !== user.name ||
+    formValue.email !== user.email ||
     !!formValue.password;
 
   const handleSubmit = (e: SyntheticEvent) => {
@@ -69,6 +73,4 @@ export const Profile: FC = () => {
       handleInputChange={handleInputChange}
     />
   );
-
-  return null;
 };

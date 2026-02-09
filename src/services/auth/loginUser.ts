@@ -55,6 +55,8 @@ export const fetchUserApp = createAsyncThunk('auth/user', async () => {
 
 export const logoutUserApp = createAsyncThunk('auth/logout', async () => {
   const res = await logoutApi();
+  localStorage.removeItem('refreshToken');
+  setCookie('accessToken', '');
   return res;
 });
 
@@ -67,7 +69,7 @@ export const updateUserApp = createAsyncThunk(
 );
 
 export const loginUserAppSlice = createSlice({
-  name: 'loginUserApp',
+  name: 'loginUser',
   initialState,
   reducers: {
     resetErr: (state) => {
