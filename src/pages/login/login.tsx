@@ -4,6 +4,7 @@ import { useDispatch } from '../../services/store';
 import { loginUserApp, resetErr } from '../../services/auth/loginUser';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from '../../services/store';
+import { Preloader } from '@ui';
 
 export const Login: FC = () => {
   const dispatch = useDispatch();
@@ -20,10 +21,13 @@ export const Login: FC = () => {
 
   useEffect(() => {
     if (!error && user) {
-      // dispatch(resetRegisterChecked());
-      navigate('/');
+      navigate('/profile');
     }
   }, [user, loading, navigate]);
+
+  if (loading) {
+    return <Preloader />;
+  }
 
   return (
     <LoginUI
