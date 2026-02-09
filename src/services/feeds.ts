@@ -6,16 +6,20 @@ import { RootState } from './store';
 export interface FeedsState {
   isLoading: boolean;
   orders: TOrder[];
-  total: number;
-  totalToday: number;
+  feed: {
+    total: number;
+    totalToday: number;
+  };
   error: string | null;
 }
 
 const initialState: FeedsState = {
   isLoading: false,
   orders: [],
-  total: 0,
-  totalToday: 0,
+  feed: {
+    total: 0,
+    totalToday: 0
+  },
   error: null
 };
 
@@ -38,16 +42,16 @@ export const feedSlice = createSlice({
       .addCase(getFeeds.fulfilled, (state, action) => {
         state.isLoading = false;
         state.orders = action.payload.orders;
-        state.total = action.payload.total;
-        state.totalToday = action.payload.totalToday;
+        state.feed.total = action.payload.total;
+        state.feed.totalToday = action.payload.totalToday;
         state.error = null;
       });
   },
   selectors: {
     feedStateSelector: (state) => state,
     feedDataSelector: (state) => state.orders,
-    feedTotalSelector: (state) => state.total,
-    feedTotalTodaySelector: (state) => state.totalToday
+    feedTotalSelector: (state) => state.feed.total,
+    feedTotalTodaySelector: (state) => state.feed.totalToday
   }
 });
 
@@ -55,7 +59,5 @@ export const {} = feedSlice.actions;
 
 export const selectFeedsIsLoading = (state: RootState) => state.feeds.isLoading;
 export const selectFeedsOrders = (state: RootState) => state.feeds.orders;
-export const selectFeedsTotal = (state: RootState) => state.feeds.total;
-export const selectFeedTotalToday = (state: RootState) =>
-  state.feeds.totalToday;
+export const selectFeedsfeed = (state: RootState) => state.feeds.feed;
 export const selectFeedsError = (state: RootState) => state.feeds.error;

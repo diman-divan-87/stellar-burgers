@@ -16,12 +16,7 @@ import { useSelector, useDispatch } from '../../services/store';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { ProtectedRoute } from '../protected-route/protected-route';
 import { selectIngredients, getIngredients } from '../../services/ingredients';
-import {
-  getFeeds,
-  selectFeedsOrders,
-  selectFeedsTotal,
-  selectFeedTotalToday
-} from '../../services/feeds';
+import { getFeeds } from '../../services/feeds';
 import { fetchUserApp } from '../../services/auth/loginUser';
 import { useEffect } from 'react';
 
