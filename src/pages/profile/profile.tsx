@@ -29,8 +29,8 @@ export const Profile: FC = () => {
       });
     }
   }, [user]);
-
-  if (isLoading) {
+  console.log('isLoading = ', isLoading);
+  if (isLoading || !user) {
     return <Preloader />;
   }
 

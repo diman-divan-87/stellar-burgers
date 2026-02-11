@@ -17,7 +17,7 @@ export const ProtectedRoute: FC<TProtectedRouteProps> = ({ children }) => {
   }
 
   if (isAccess) {
-    return <Navigate to='/login' />;
+    return <Navigate to='/' />;
   }
 
   return children;
