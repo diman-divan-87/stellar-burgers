@@ -3,7 +3,11 @@ import { TConstructorIngredient } from '@utils-types';
 import { BurgerConstructorUI } from '@ui';
 
 import { useSelector, useDispatch } from '../../services/store';
-import { getIngredients, getBun } from '../../services/burger-constructor';
+import {
+  getIngredients,
+  getBun,
+  clearBurgerConstructor
+} from '../../services/burger-constructor';
 import {
   clearTargetOrder,
   createOrder,
@@ -40,7 +44,9 @@ export const BurgerConstructor: FC = () => {
         constructorItems.bun._id,
         ...constructorItems.ingredients.map((ing) => ing._id)
       ])
-    );
+    ).then(() => {
+      dispatch(clearBurgerConstructor());
+    });
   };
   const closeOrderModal = () => {
     dispatch(clearTargetOrder());

@@ -34,6 +34,14 @@ export const burgerConstructorSlice = createSlice({
       action: PayloadAction<TConstructorIngredient[]>
     ) => {
       state.ingredientsArr = action.payload;
+    },
+    moveIngredient(state, action: PayloadAction<{ from: number; to: number }>) {
+      const { from, to } = action.payload;
+      const item = state.ingredientsArr.splice(from, 1)[0];
+      state.ingredientsArr.splice(to, 0, item);
+    },
+    clearBurgerConstructor(state) {
+      state.ingredientsArr = [];
     }
   }
 });
@@ -41,6 +49,8 @@ export const burgerConstructorSlice = createSlice({
 export const { addIngredient } = burgerConstructorSlice.actions;
 export const { addBun } = burgerConstructorSlice.actions;
 export const { addAllingredientsArr } = burgerConstructorSlice.actions;
+export const { moveIngredient } = burgerConstructorSlice.actions;
+export const { clearBurgerConstructor } = burgerConstructorSlice.actions;
 
 // Функции для получения конкретных частей состояния из Redux store.
 export const getIngredients = (state: RootState) =>
