@@ -14,7 +14,7 @@ export const Register: FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
-  const { error, loading, user, isRegisterChecked } = useSelector(
+  const { error, loading, user, isAuthChecked } = useSelector(
     (state) => state.loginUser
   );
 
@@ -31,7 +31,7 @@ export const Register: FC = () => {
   };
 
   useEffect(() => {
-    if (user && !loading && !isRegisterChecked) {
+    if (user && !loading && !isAuthChecked) {
       dispatch(resetRegisterChecked());
       navigate('/');
     }

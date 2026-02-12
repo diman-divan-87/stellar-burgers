@@ -12,12 +12,12 @@ import {
 import { AppHeader, IngredientDetails, Modal, OrderInfo } from '@components';
 import '../../index.css';
 import styles from './app.module.css';
-import { useSelector, useDispatch } from '../../services/store';
+import { useDispatch } from '../../services/store';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { ProtectedRoute } from '../protected-route/protected-route';
-import { selectIngredients, getIngredients } from '../../services/ingredients';
+import { getIngredients } from '../../services/ingredients';
 import { getFeeds } from '../../services/feeds';
-import { fetchUserApp } from '../../services/auth/loginUser';
+import { checkUserAuth } from '../../services/auth/loginUser';
 import { useEffect } from 'react';
 
 const App = () => {
@@ -27,7 +27,7 @@ const App = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(fetchUserApp());
+    dispatch(checkUserAuth());
     dispatch(getIngredients());
     dispatch(getFeeds());
   }, [dispatch]);
@@ -41,7 +41,7 @@ const App = () => {
         <Route
           path='/login'
           element={
-            <ProtectedRoute>
+            <ProtectedRoute onlyUnAuth>
               <Login />
             </ProtectedRoute>
           }
@@ -49,7 +49,7 @@ const App = () => {
         <Route
           path='/register'
           element={
-            <ProtectedRoute>
+            <ProtectedRoute onlyUnAuth>
               <Register />
             </ProtectedRoute>
           }
@@ -57,7 +57,7 @@ const App = () => {
         <Route
           path='/forgot-password'
           element={
-            <ProtectedRoute>
+            <ProtectedRoute onlyUnAuth>
               <ForgotPassword />
             </ProtectedRoute>
           }
@@ -65,7 +65,7 @@ const App = () => {
         <Route
           path='/reset-password'
           element={
-            <ProtectedRoute>
+            <ProtectedRoute onlyUnAuth>
               <ResetPassword />
             </ProtectedRoute>
           }

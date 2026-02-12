@@ -29,7 +29,7 @@ export const Profile: FC = () => {
       });
     }
   }, [user]);
-  console.log('isLoading = ', isLoading);
+
   if (isLoading || !user) {
     return <Preloader />;
   }
