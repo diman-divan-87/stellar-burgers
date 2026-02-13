@@ -42,6 +42,7 @@ export const burgerConstructorSlice = createSlice({
     },
     clearBurgerConstructor(state) {
       state.ingredientsArr = [];
+      state.bun = null;
     }
   }
 });
