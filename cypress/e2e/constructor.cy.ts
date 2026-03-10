@@ -36,11 +36,24 @@ describe('Тесты конструктора бургера:', () => {
   });
 
   // Протестирована работа модальных окон:
-  // открытие модального окна ингредиента;
+  describe('Модальные окна', () => {
+    // открытие модального окна ингредиента;
+    it('Открыть', () => {
+      cy.get('[data-cy=constructor-items-add]').first().click();
+      cy.get('[data-cy=modal]', { timeout: 1000 })
+      .should('be.visible')
+      .and('contain', 'Краторная булка N-200i');
+    });
+    
+    // закрытие по клику на крестик;
+    it('Закрыть', () => {
+      cy.get('[data-cy=constructor-items-add]').first().click();
+      cy.get('[data-cy=btn-close-modal]', { timeout: 1000 }).click();
 
-  // закрытие по клику на крестик;
-
-  // закрытие по клику на оверлей (желательно);
+      cy.visit('/');
+      cy.get('[data-testid="modal"]').should('not.exist');
+    });
+  });
 
 
   // Создание заказа:
@@ -61,7 +74,7 @@ describe('Тесты конструктора бургера:', () => {
   // Проверяется, что конструктор пуст.
 
   afterEach(() => {
-    // Явная очистка токенов после каждого теста
+    // Очистка токенов
     cy.clearCookie('accessToken');
     cy.window().then((win) => {
       win.localStorage.removeItem('refreshToken');
