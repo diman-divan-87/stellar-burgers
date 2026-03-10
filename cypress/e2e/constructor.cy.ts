@@ -41,37 +41,53 @@ describe('Тесты конструктора бургера:', () => {
     it('Открыть', () => {
       cy.get('[data-cy=constructor-items-add]').first().click();
       cy.get('[data-cy=modal]', { timeout: 1000 })
-      .should('be.visible')
-      .and('contain', 'Краторная булка N-200i');
+        .should('be.visible')
+        .and('contain', 'Краторная булка N-200i');
     });
-    
+
     // закрытие по клику на крестик;
     it('Закрыть', () => {
       cy.get('[data-cy=constructor-items-add]').first().click();
       cy.get('[data-cy=btn-close-modal]', { timeout: 1000 }).click();
 
       cy.visit('/');
-      cy.get('[data-testid="modal"]').should('not.exist');
+      cy.get('[data-cy=modal]').should('not.exist');
     });
   });
 
 
   // Создание заказа:
-  // Созданы моковые данные ответа на запрос данных пользователя.
+  describe('Создание заказа', () => {
+    // Собирается бургер.
+    it('Собирается бургер', () => {
+      cy.get('[data-cy=constructor-items-add]', { timeout: 5000 }).first().find('button').click();
+      cy.get('[data-cy=constructor-items-add]', { timeout: 5000 }).contains('p', 'Биокотлета из марсианской Магнолии')
+        .parents('li')
+        .find('button')
+        .click();
 
-  // Созданы моковые данные ответа на запрос создания заказа.
+      cy.get('[data-cy=constructor-items-bun-top]').should('contain', 'Краторная булка N-200i');
+      cy.get('[data-cy=constructor-items-ingredient]').should('contain', 'Биокотлета из марсианской Магнолии');
 
-  // Подставляются моковые токены авторизации.
+      // Вызывается клик по кнопке «Оформить заказ».
+      cy.get('[data-cy=btn-order]').click();
+      cy.wait('@createOrder');
 
-  // Собирается бургер.
+      // Проверяется, что модальное окно открылось и номер заказа верный.
+      cy.get('[data-cy=modal]').should('exist');
+      cy.get('[data-cy=order-number]').should('contain', '102680');
 
-  // Вызывается клик по кнопке «Оформить заказ».
+      // Закрывается модальное окно и проверяется успешность закрытия.
+      cy.get('[data-cy=btn-close-modal]', { timeout: 1000 }).click();
 
-  // Проверяется, что модальное окно открылось и номер заказа верный.
+      cy.visit('/');
+      cy.get('[data-cy=modal]').should('not.exist');
 
-  // Закрывается модальное окно и проверяется успешность закрытия.
-
-  // Проверяется, что конструктор пуст.
+      // Проверяется, что конструктор пуст.
+      cy.get('[data-cy=constructor-items-bun-top]').should('not.exist');
+      cy.get('[data-cy=constructor-items-ingredient]').should('not.contain', 'Биокотлета из марсианской Магнолии');
+    });
+  });
 
   afterEach(() => {
     // Очистка токенов
