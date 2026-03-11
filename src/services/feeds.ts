@@ -13,7 +13,7 @@ export interface FeedsState {
   error: string | null;
 }
 
-const initialState: FeedsState = {
+export const initialState: FeedsState = {
   isLoading: false,
   orders: [],
   feed: {
