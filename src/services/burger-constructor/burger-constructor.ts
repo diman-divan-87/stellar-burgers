@@ -3,7 +3,7 @@ import { RootState } from '../store';
 import { TConstructorIngredient, TIngredient } from '@utils-types';
 import { v4 } from 'uuid';
 
-interface BurgerConstructorState {
+export interface BurgerConstructorState {
   ingredientsArr: TConstructorIngredient[]; // выбранные ингридиенты
   bun: TConstructorIngredient | null;
 }
