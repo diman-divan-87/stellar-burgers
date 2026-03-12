@@ -1,7 +1,7 @@
 import { getIngredientsApi } from '@api';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { TIngredient } from '@utils-types';
-import { RootState } from './store';
+import { RootState } from '../store';
 
 interface IngredientsState {
   data: TIngredient[]; // Массив ингредиентов

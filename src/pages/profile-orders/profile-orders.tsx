@@ -7,7 +7,7 @@ import {
   selecLoadingOrder,
   selectUserOrders,
   fetchUserOrders
-} from '../../services/orders';
+} from '../../services/orders/orders';
 
 import { Preloader } from '@ui';
 

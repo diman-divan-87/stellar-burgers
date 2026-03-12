@@ -1,5 +1,5 @@
 TN:
-SF:src\services\feeds.ts
+SF:src\services\feeds\feeds.ts
 FN:32,extraReducers
 FN:51,feedStateSelector
 FN:52,feedDataSelector

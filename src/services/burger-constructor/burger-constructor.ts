@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState } from './store';
+import { RootState } from '../store';
 import { TConstructorIngredient, TIngredient } from '@utils-types';
 import { v4 } from 'uuid';
 

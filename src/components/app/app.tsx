@@ -15,8 +15,8 @@ import styles from './app.module.css';
 import { useDispatch } from '../../services/store';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { ProtectedRoute } from '../protected-route/protected-route';
-import { getIngredients } from '../../services/ingredients';
-import { getFeeds } from '../../services/feeds';
+import { getIngredients } from '../../services/ingredients/ingredients';
+import { getFeeds } from '../../services/feeds/feeds';
 import { checkUserAuth } from '../../services/auth/loginUser';
 import { useEffect } from 'react';
 

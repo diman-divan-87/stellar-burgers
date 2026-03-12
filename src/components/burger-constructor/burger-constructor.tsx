@@ -7,13 +7,13 @@ import {
   getIngredients,
   getBun,
   clearBurgerConstructor
-} from '../../services/burger-constructor';
+} from '../../services/burger-constructor/burger-constructor';
 import {
   clearTargetOrder,
   createOrder,
   selecTargetOrder,
   selecLoadingOrder
-} from '../../services/orders';
+} from '../../services/orders/orders';
 import { selectUser } from '../../services/auth/loginUser';
 import { useNavigate } from 'react-router-dom';
 

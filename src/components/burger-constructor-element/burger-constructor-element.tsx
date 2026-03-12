@@ -6,10 +6,10 @@ import { useSelector } from '../../services/store';
 import {
   getIngredients,
   moveIngredient
-} from '../../services/burger-constructor';
+} from '../../services/burger-constructor/burger-constructor';
 
 import { useDispatch } from '../../services/store';
-import { addAllingredientsArr } from '../../services/burger-constructor';
+import { addAllingredientsArr } from '../../services/burger-constructor/burger-constructor';
 
 export const BurgerConstructorElement: FC<BurgerConstructorElementProps> = memo(
   ({ ingredient, index, totalItems }) => {

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1773194509401" clover="3.2.0">
-  <project timestamp="1773194509401" name="All files">
+<coverage generated="1773280694428" clover="3.2.0">
+  <project timestamp="1773280694428" name="All files">
     <metrics statements="346" coveredstatements="142" conditionals="1" coveredconditionals="1" methods="27" coveredmethods="1" elements="374" coveredelements="144" complexity="0" loc="346" ncloc="346" packages="2" files="3" classes="3"/>
-    <package name="services">
+    <package name="services.feeds">
       <metrics statements="63" coveredstatements="54" conditionals="1" coveredconditionals="1" methods="9" coveredmethods="1"/>
-      <file name="feeds.ts" path="C:\learn\stellar-burgers\src\services\feeds.ts">
+      <file name="feeds.ts" path="C:\learn\stellar-burgers\src\services\feeds\feeds.ts">
         <metrics statements="63" coveredstatements="54" conditionals="1" coveredconditionals="1" methods="9" coveredmethods="1"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>

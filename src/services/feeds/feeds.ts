@@ -1,7 +1,7 @@
 import { TOrder } from '@utils-types';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { getFeedsApi } from '@api';
-import { RootState } from './store';
+import { RootState } from '../store';
 
 export interface FeedsState {
   isLoading: boolean;
