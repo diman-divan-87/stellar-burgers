@@ -85,7 +85,7 @@ describe('ordersSlice', () => {
         // Создаем состояние с заполненным targetOrder
         const previousState = {
             ...initialOrders,
-            targetOrder: {...testOrders.targetOrder, _id: '1' } as TOrder // добавляем тестовый заказ
+            targetOrder: { ...testOrders.targetOrder, _id: '1' } as TOrder // добавляем тестовый заказ
         };
 
         // Применяем действие clearTargetOrder к предыдущему состоянию
@@ -159,6 +159,47 @@ describe('ordersSlice', () => {
         expect(state.error).toEqual('failed')
     });
 
+    // Тестируем pending состояние fetchUserOrders
+    test('fetchUserOrders.pending', () => {
+        // Создаем предыдущее состояние с ошибкой
+        const previousState = {
+            ...initialOrders,
+            error: 'some error', // устанавливаем тестовую ошибку
+            loading: false // loading = false
+        };
+
+        // Создаем действие pending для fetchUserOrders
+        const action = { type: fetchUserOrders.pending.type };
+        // Применяем действие к предыдущему состоянию
+        const state = ordersReducer(previousState, action);
+
+        // Проверяем, что состояние обновилось корректно
+        expect(state.loading).toEqual(true);
+        expect(state.error).toEqual(null);
+    });
+
+    // Тестируем rejected состояние fetchUserOrders 
+    test('fetchUserOrders.rejected', () => {
+        // Создаем предыдущее состояние с загрузкой
+        const previousState = {
+            ...initialOrders,
+            loading: true // устанавливаем loading = true
+        };
+
+        // Создаем действие rejected с ошибкой
+        const action = {
+            type: fetchUserOrders.rejected.type,
+            error: { message: 'Error message' } // передаем сообщение об ошибке
+        };
+
+        // Применяем действие к предыдущему состоянию
+        const state = ordersReducer(previousState, action);
+
+        // Проверяем, что состояние обновилось корректно
+        expect(state.loading).toEqual(false);
+        expect(state.error).toEqual('Unknown error');
+    });
+
     // Тестируем успешное выполнение fetchUserOrders (fulfilled состояние)
     test('fetchUserOrders.fulfilled', () => {
         // Создаем предыдущее состояние с загрузкой
@@ -179,6 +220,47 @@ describe('ordersSlice', () => {
         // Проверяем, что состояние обновилось корректно
         expect(state.loading).toEqual(false)
         expect(state.listOrder).toEqual(testOrders.listOrder)
+    });
+
+    // Тестируем pending состояние fetchOrderByNumber (строки 58-59)
+    test('fetchOrderByNumber.pending', () => {
+        // Создаем предыдущее состояние с ошибкой
+        const previousState = {
+            ...initialOrders,
+            error: 'some error', // устанавливаем тестовую ошибку
+            loading: false // loading = false
+        };
+
+        // Создаем действие pending для fetchOrderByNumber
+        const action = { type: fetchOrderByNumber.pending.type };
+        // Применяем действие к предыдущему состоянию
+        const state = ordersReducer(previousState, action);
+
+        // Проверяем, что состояние обновилось корректно
+        expect(state.loading).toEqual(true);
+        expect(state.error).toEqual(null);
+    });
+
+    // Тестируем rejected состояние fetchOrderByNumber (строки 66-69)
+    test('fetchOrderByNumber.rejected', () => {
+        // Создаем предыдущее состояние с загрузкой
+        const previousState = {
+            ...initialOrders,
+            loading: true // устанавливаем loading = true
+        };
+
+        // Создаем действие rejected с ошибкой
+        const action = {
+            type: fetchOrderByNumber.rejected.type,
+            error: { message: 'Error message' } // передаем сообщение об ошибке
+        };
+
+        // Применяем действие к предыдущему состоянию
+        const state = ordersReducer(previousState, action);
+
+        // Проверяем, что состояние обновилось корректно
+        expect(state.loading).toEqual(false);
+        expect(state.error).toEqual('failed');
     });
 
     // Тестируем успешное выполнение fetchOrderByNumber (fulfilled состояние)

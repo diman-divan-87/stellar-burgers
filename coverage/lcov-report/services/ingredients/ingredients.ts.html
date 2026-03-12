@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for services/feeds/feeds.ts</title>
+    <title>Code coverage report for services/ingredients/ingredients.ts</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">services/feeds</a> feeds.ts</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">services/ingredients</a> ingredients.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">96.66% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>63/63</span>
+                <span class='fraction'>58/60</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">11.11% </span>
+                <span class="strong">16.66% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/9</span>
+                <span class='fraction'>1/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">96.66% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>63/63</span>
+                <span class='fraction'>58/60</span>
             </div>
         
             
@@ -123,10 +123,7 @@
 <a name='L58'></a><a href='#L58'>58</a>
 <a name='L59'></a><a href='#L59'>59</a>
 <a name='L60'></a><a href='#L60'>60</a>
-<a name='L61'></a><a href='#L61'>61</a>
-<a name='L62'></a><a href='#L62'>62</a>
-<a name='L63'></a><a href='#L63'>63</a>
-<a name='L64'></a><a href='#L64'>64</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L61'></a><a href='#L61'>61</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -163,6 +160,17 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -172,86 +180,69 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { TOrder } from '@utils-types';
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { getFeedsApi } from '@api';
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { getIngredientsApi } from '@api';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { TIngredient } from '@utils-types';
 import { RootState } from '../store';
 &nbsp;
-export interface FeedsState {
-  isLoading: boolean;
-  orders: TOrder[];
-  feed: {
-    total: number;
-    totalToday: number;
-  };
-  error: string | null;
+interface IngredientsState {
+  data: TIngredient[]; // Массив ингредиентов
+  isLoading: boolean; // Флаг загрузки
+  error: string | null; // Ошибка, если есть
 }
 &nbsp;
-export const initialState: FeedsState = {
+// Определяется структура состояния и начальные значения.
+export const initialState: IngredientsState = {
+  data: [],
   isLoading: false,
-  orders: [],
-  feed: {
-    total: 0,
-    totalToday: 0
-  },
   error: null
 };
 &nbsp;
-export const getFeeds = createAsyncThunk('feed/get-feeds', getFeedsApi);
+// получение ингредиентов
+export const getIngredients = createAsyncThunk(
+  'ingredient/get',
+  getIngredientsApi
+);
 &nbsp;
-export const feedSlice = createSlice({
-  name: 'feed',
-  initialState,
-  reducers: {},
+export const ingredientsSlice = createSlice({
+  name: 'ingredients', // Имя слайса
+  initialState, // Начальное состояние
+  reducers: {}, // Синхронные редюсеры (пусто)
+  selectors: {
+    // Селекторы для чтения состояния
+    ingredientsStateSelector: <span class="fstat-no" title="function not covered" >(state) =&gt; state,</span>
+    ingredientsDataSelector: <span class="fstat-no" title="function not covered" >(state) =&gt; state.</span>data
+  },
   extraReducers: (builder) =&gt; {
+    // Обработка асинхронных действий
     builder
-      .addCase(getFeeds.pending, (state) =&gt; {
+      .addCase(getIngredients.pending, (state) =&gt; {
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(getFeeds.rejected, (state, action) =&gt; {
+      .addCase(getIngredients.rejected, (state, action) =&gt; {
         state.isLoading = false;
         state.error = action.error.message as string;
       })
-      .addCase(getFeeds.fulfilled, (state, action) =&gt; {
+      .addCase(getIngredients.fulfilled, (state, action) =&gt; {
         state.isLoading = false;
-        state.orders = action.payload.orders;
-        state.feed.total = action.payload.total;
-        state.feed.totalToday = action.payload.totalToday;
+        state.data = action.payload;
         state.error = null;
       });
-  },
-  selectors: {
-    feedStateSelector: <span class="fstat-no" title="function not covered" >(state) =&gt; state,</span>
-    feedDataSelector: <span class="fstat-no" title="function not covered" >(state) =&gt; state.</span>orders,
-    feedTotalSelector: <span class="fstat-no" title="function not covered" >(state) =&gt; state.</span>feed.total,
-    feedTotalTodaySelector: <span class="fstat-no" title="function not covered" >(state) =&gt; state.</span>feed.totalToday
   }
 });
 &nbsp;
-export const {} = feedSlice.actions;
+export const {} = ingredientsSlice.actions;
 &nbsp;
-export const selectFeedsIsLoading = <span class="fstat-no" title="function not covered" >(state: RootState) =&gt; state.</span>feeds.isLoading;
-export const selectFeedsOrders = <span class="fstat-no" title="function not covered" >(state: RootState) =&gt; state.</span>feeds.orders;
-export const selectFeedsfeed = <span class="fstat-no" title="function not covered" >(state: RootState) =&gt; state.</span>feeds.feed;
-export const selectFeedsError = <span class="fstat-no" title="function not covered" >(state: RootState) =&gt; state.</span>feeds.error;
+// Функции для получения конкретных частей состояния из Redux store.
+export const selectIngredients = <span class="fstat-no" title="function not covered" >(state: RootState) =&gt; state.</span>ingredients.data;
+export const selectIngredientsLoading = <span class="fstat-no" title="function not covered" >(state: RootState) =&gt;</span>
+<span class="cstat-no" title="statement not covered" >  state.ingredients.isLoading;</span>
+export const selectIngredientsError = <span class="fstat-no" title="function not covered" >(state: RootState) =&gt;</span>
+<span class="cstat-no" title="statement not covered" >  state.ingredients.error;</span>
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
